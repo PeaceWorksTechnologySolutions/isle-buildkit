@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.2.1
 ARG repository=local
 ARG tag=latest
-ARG alpine=3.15.0
+ARG alpine=3.16.2
 FROM --platform=$BUILDPLATFORM ${repository}/composer:${tag} AS composer
 
 RUN --mount=type=cache,id=riprap-composer,sharing=locked,target=/root/.composer/cache \
@@ -20,7 +20,7 @@ FROM ${repository}/nginx:${tag}
 EXPOSE 8000
 
 RUN --mount=type=cache,id=riprap-apk,sharing=locked,from=cache,target=/var/cache/apk \
-    apk add php7-pdo_sqlite && \
+    apk add php8-pdo_sqlite && \
     cleanup.sh
 
 # The driver is given explicitly as Rip Rap can be run on SQLite without
